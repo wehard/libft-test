@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/16 12:17:49 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/16 15:42:46 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../libft/libft.h"
 
 #define BUFSIZE 50
+#define DEBUG 0
 
 int num_tests = 0;
 
@@ -90,6 +91,38 @@ static char *test_ft_memccpy()
 	return (0);
 }
 
+static char *test_ft_memchr()
+{
+	char str[] = "test basic ft_memchr !";
+	char c = 'f';
+
+	mu_assert("ft_memchr", "error: ft_memchr failed!", memchr(str, c, 15) == ft_memchr(str, c, 15));
+	return (0);
+}
+
+static char *test_ft_memcmp()
+{
+	char *s1 = "hello world!";
+	char *s2 = "hello world!";
+	int n = 5;
+
+	mu_assert("ft_memcmp", "error: ft_memcmp failed!", memcmp(s1, s2, n) == ft_memcmp(s1, s2, n));
+	return (0);
+}
+
+static char *test_ft_memmove()
+{
+	char src[] = "test basic memcpy !";
+	char buf1[19];
+	char buf2[19];
+
+	memmove(buf1, src, 10);
+	ft_memmove(buf2, src, 10);
+
+	mu_assert("ft_memmove", "error: ft_memmove failed!", memcmp(buf1, buf2, 10) == 0);
+	return (0);
+}
+
 static char *test_ft_memcpy()
 {
 	char src[] = "test basic memcpy !";
@@ -118,6 +151,18 @@ static char *test_ft_memset()
 	return (0);
 }
 
+static char *test_ft_strcat()
+{
+	char src[] = "I am a cat";
+	char buf1[BUFSIZE] = "blabla";
+	char buf2[BUFSIZE] = "blabla";
+
+	strcat(buf1, src);
+	ft_strcat(buf2, src);
+	mu_assert("ft_strcat", "error: ft_strcat failed!", strcmp(buf1, buf2) == 0);
+	return (0);
+}
+
 static char *test_ft_strcmp()
 {
 	char *s1 = "hello world!";
@@ -126,15 +171,9 @@ static char *test_ft_strcmp()
 	return 0;
 }
 
-static char *test_ft_strlen()
-{
-	mu_assert("ft_strlen", "error: ft_strlen failed!", strlen("123") == ft_strlen("123"));
-	return 0;
-}
-
 static char *test_ft_strcpy()
 {
-	char	*src = "--> nyancat <--\n\r";
+	char	*src = "hello this is a\n\r";
 	char	dst1[30];
 	char	dst2[30];
 
@@ -148,6 +187,100 @@ static char *test_ft_strcpy()
 	return 0;
 }
 
+static char *test_ft_strdup()
+{
+	char *src = "I want to be duplicated!";
+	char dup[BUFSIZE];
+
+	ft_strcpy(dup, src);
+
+	mu_assert("ft_strdup", "error: ft_strdup failed!", strcmp(src, dup) == 0);
+	return 0;
+}
+
+static char *test_ft_strlcat()
+{
+	char src[] = "I am a cat";
+	char buf1[BUFSIZE] = "blabla";
+	char buf2[BUFSIZE] = "blabla";
+
+	strlcat(buf1, src, 5);
+	ft_strlcat(buf2, src, 5);
+	mu_assert("ft_strlcat", "error: ft_strlcat failed!", strcmp(buf1, buf2) == 0);
+	return (0);
+}
+
+static char *test_ft_strlen()
+{
+	mu_assert("ft_strlen", "error: ft_strlen failed!", strlen("123") == ft_strlen("123"));
+	return 0;
+}
+
+static char *test_ft_strncat()
+{
+	char src[] = "I am a cat";
+	char buf1[BUFSIZE] = "blabla";
+	char buf2[BUFSIZE] = "blabla";
+
+	strncat(buf1, src, 5);
+	ft_strncat(buf2, src, 5);
+	mu_assert("ft_strncat", "error: ft_strncat failed!", strcmp(buf1, buf2) == 0);
+	return (0);
+}
+
+static char *test_ft_strncmp()
+{
+	char *s1 = "hello world!";
+	char *s2 = "hello world!";
+	int n = 5;
+
+	mu_assert("ft_strncmp", "error: ft_strncmp failed!", strncmp(s1, s2, n) == ft_strncmp(s1, s2, n));
+	return 0;
+}
+
+static char *test_ft_strncpy()
+{
+	char	*src = "hello this is a";
+	char	dst1[30];
+	char	dst2[30];
+	int n = 10;
+
+	memset(dst1, 'A', sizeof(dst1));
+	memset(dst2, 'A', sizeof(dst2));
+
+	strncpy(dst1, src, n);
+	ft_strncpy(dst2, src, n);
+
+#if DEBUG
+	printf("strncopy:\t%s\n", dst1);
+	printf("ft_strncpy:\t%s\n", dst2);
+#endif
+
+	mu_assert("ft_strncpy", "error: ft_strncpy failed!", memcmp(dst1, dst2, 29) == 0);
+	return 0;
+}
+
+static char *test_ft_strstr()
+{
+	char str[] = "this is a string and we want to find something in it";
+	char needle[] = "string";
+	mu_assert("ft_strstr", "error: ft_strstr failed!", strcmp(strstr(str, needle), ft_strstr(str, needle)) == 0);
+	return (0);
+}
+
+static char *test_ft_tolower()
+{
+	mu_assert("ft_tolower", "error: ft_strstr failed!", ft_tolower('C') == 'c');
+	return (0);
+}
+
+static char *test_ft_toupper()
+{
+	mu_assert("ft_toupper", "error: ft_toupper failed!", ft_toupper('c') == 'C');
+	return (0);
+}
+
+// Part 1
 static char *all_tests() {
 	mu_run_test(test_ft_atoi);
 	mu_run_test(test_ft_bzero);
@@ -159,12 +292,28 @@ static char *all_tests() {
 	mu_run_test(test_ft_isprint);
 
 	mu_run_test(test_ft_memccpy);
+	mu_run_test(test_ft_memchr);
+	mu_run_test(test_ft_memcmp);
 	mu_run_test(test_ft_memcpy);
+	mu_run_test(test_ft_memmove);
 	mu_run_test(test_ft_memset);
 
+	mu_run_test(test_ft_strcat);
 	mu_run_test(test_ft_strcmp);
-	mu_run_test(test_ft_strlen);
 	mu_run_test(test_ft_strcpy);
+	mu_run_test(test_ft_strdup);
+	mu_run_test(test_ft_strlcat);
+	mu_run_test(test_ft_strlen);
+	mu_run_test(test_ft_strncat);
+
+	mu_run_test(test_ft_strncmp);
+	mu_run_test(test_ft_strncpy);
+
+	mu_run_test(test_ft_strstr);
+
+	mu_run_test(test_ft_tolower);
+	mu_run_test(test_ft_toupper);
+
 	return 0;
 }
 
