@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/16 15:42:46 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/16 16:58:45 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,24 @@ static char *test_ft_strcat()
 	return (0);
 }
 
+static char *test_ft_strchr()
+{
+	char str[] = "test basic ft_strchr !";
+	char c = 'f';
+
+	mu_assert("ft_strchr", "error: ft_strchr failed!", strchr(str, c) == ft_strchr(str, c));
+	return (0);
+}
+
+static char *test_ft_strrchr()
+{
+	char str[] = "test basic ft_strrchr !";
+	char c = 'f';
+
+	mu_assert("ft_strrchr", "error: ft_strrchr failed!", strrchr(str, c) == ft_strrchr(str, c));
+	return (0);
+}
+
 static char *test_ft_strcmp()
 {
 	char *s1 = "hello world!";
@@ -260,11 +278,24 @@ static char *test_ft_strncpy()
 	return 0;
 }
 
+static char *test_ft_strnstr()
+{
+	char str[] = "this is a string and we want to find something in it";
+	char needle[] = "is";
+	int n = 3;
+#if DEBUG
+	printf("%s\n", strnstr(str, needle, n));
+	printf("%s\n", ft_strnstr(str, needle, n));
+#endif
+	mu_assert("ft_strnstr", "error: ft_strnstr failed!", strnstr(str, needle, n) == ft_strnstr(str, needle, n));
+	return (0);
+}
+
 static char *test_ft_strstr()
 {
 	char str[] = "this is a string and we want to find something in it";
 	char needle[] = "string";
-	mu_assert("ft_strstr", "error: ft_strstr failed!", strcmp(strstr(str, needle), ft_strstr(str, needle)) == 0);
+	mu_assert("ft_strstr", "error: ft_strstr failed!", strstr(str, needle) == ft_strstr(str, needle));
 	return (0);
 }
 
@@ -299,6 +330,7 @@ static char *all_tests() {
 	mu_run_test(test_ft_memset);
 
 	mu_run_test(test_ft_strcat);
+	mu_run_test(test_ft_strchr);
 	mu_run_test(test_ft_strcmp);
 	mu_run_test(test_ft_strcpy);
 	mu_run_test(test_ft_strdup);
@@ -308,6 +340,10 @@ static char *all_tests() {
 
 	mu_run_test(test_ft_strncmp);
 	mu_run_test(test_ft_strncpy);
+
+	mu_run_test(test_ft_strnstr);
+
+	mu_run_test(test_ft_strrchr);
 
 	mu_run_test(test_ft_strstr);
 
