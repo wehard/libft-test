@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/16 17:23:18 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/16 20:35:18 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ int num_tests = 0;
 static char *test_ft_atoi()
 {
 	char *str = "-123";
-	mu_assert("ft_atoi", "error: ft_atoi failed!", atoi(str) == ft_atoi(str));
+	int a = atoi(str);
+	int b = ft_atoi(str);
+#if DEBUG
+	printf("atoi: %i\n", a);
+	printf("ft_atoi: %i\n", b);
+#endif
+	mu_assert("ft_atoi", "error: ft_atoi failed!", a == b);
 	return 0;
 }
 
@@ -46,7 +52,7 @@ static char *test_ft_bzero()
 static char *test_ft_isalnum()
 {
 	char c = '1';
-	mu_assert("ft_isalnum", "error: ft_isalnum failed!", ft_isalnum(c) == 1);
+	mu_assert("ft_isalnum", "basic test failed!", ft_isalnum(c) == 1);
 	return (0);
 }
 
@@ -216,6 +222,7 @@ static char *test_ft_strdup()
 	return 0;
 }
 
+#ifdef __APPLE__
 static char *test_ft_strlcat()
 {
 	char src[] = "I am a cat";
@@ -227,6 +234,7 @@ static char *test_ft_strlcat()
 	mu_assert("ft_strlcat", "error: ft_strlcat failed!", strcmp(buf1, buf2) == 0);
 	return (0);
 }
+#endif
 
 static char *test_ft_strlen()
 {
@@ -278,6 +286,7 @@ static char *test_ft_strncpy()
 	return 0;
 }
 
+#ifdef __APPLE__
 static char *test_ft_strnstr()
 {
 	char str[] = "this is a string and we want to find something in it";
@@ -290,6 +299,7 @@ static char *test_ft_strnstr()
 	mu_assert("ft_strnstr", "error: ft_strnstr failed!", strnstr(str, needle, n) == ft_strnstr(str, needle, n));
 	return (0);
 }
+#endif
 
 static char *test_ft_strstr()
 {
@@ -301,18 +311,20 @@ static char *test_ft_strstr()
 
 static char *test_ft_tolower()
 {
-	mu_assert("ft_tolower", "error: ft_strstr failed!", ft_tolower('C') == 'c');
+	mu_assert("ft_tolower (alpha)", "error: ft_strstr failed!", ft_tolower('C') == 'c');
+	mu_assert("ft_tolower (nprint)", "error: ft_strstr failed!", ft_tolower('\n') == '\n');
 	return (0);
 }
 
 static char *test_ft_toupper()
 {
-	mu_assert("ft_toupper", "error: ft_toupper failed!", ft_toupper('c') == 'C');
+	mu_assert("ft_toupper (alpha)", "failed basic test with alpha", ft_toupper('c') == 'C');
+	mu_assert("ft_toupper (nprint)", "failed test with \'\\r\'", ft_toupper('\r') == '\r');
 	return (0);
 }
 
 // Part 1
-static char *all_tests() {
+static char *all_tests_libc() {
 	mu_run_test(test_ft_atoi);
 	mu_run_test(test_ft_bzero);
 
@@ -334,15 +346,23 @@ static char *all_tests() {
 	mu_run_test(test_ft_strcmp);
 	mu_run_test(test_ft_strcpy);
 	mu_run_test(test_ft_strdup);
+
+#ifdef __APPLE__
 	mu_run_test(test_ft_strlcat);
+#else
+	printf("Skipping ft_strlcat!\n");
+#endif
 	mu_run_test(test_ft_strlen);
 	mu_run_test(test_ft_strncat);
 
 	mu_run_test(test_ft_strncmp);
 	mu_run_test(test_ft_strncpy);
 
+#ifdef __APPLE__
 	mu_run_test(test_ft_strnstr);
-
+#else
+	printf("Skipping ft_strnstr!\n");
+#endif
 	mu_run_test(test_ft_strrchr);
 
 	mu_run_test(test_ft_strstr);
@@ -355,7 +375,7 @@ static char *all_tests() {
 
 int main(void/*int argc, char **argv*/)
 {
-	char *result = all_tests();
+	char *result = all_tests_libc();
 	if (result != 0) {
 		 printf("%s\n", result);
 	}
@@ -365,6 +385,5 @@ int main(void/*int argc, char **argv*/)
 		printf("\033[0;32mALL OK!\033[0m\nGreat job, %s!\n", user);
 	}
 	printf("Tests run: %d\n", num_tests);
-
 	return result != 0;
 }
