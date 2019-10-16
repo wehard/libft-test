@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/16 20:35:18 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/16 20:56:21 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,6 +384,6 @@ int main(void/*int argc, char **argv*/)
 		const char* user = getenv("USER");
 		printf("\033[0;32mALL OK!\033[0m\nGreat job, %s!\n", user);
 	}
-	printf("Tests run: %d\n", num_tests);
+	printf("Tests done: %d\n", num_tests);
 	return result != 0;
 }
