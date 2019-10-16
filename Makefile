@@ -6,7 +6,7 @@
 #    By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 15:22:37 by wkorande          #+#    #+#              #
-#    Updated: 2019/10/15 22:32:19 by wkorande         ###   ########.fr        #
+#    Updated: 2019/10/16 11:11:19 by wkorande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ LIBFOLDER = ../libft
 all: $(NAME)
 
 $(NAME):
-	gcc -Wall -Wextra -Werror -o $(NAME) -I $(INCL) $(SRCS) -L../libft -lft
+	cd $(LIBFOLDER) && make re && make clean
+	gcc -o $(NAME) -I $(INCL) $(SRCS) -L../libft -lft
 
 clean:
 	rm -f *.o
