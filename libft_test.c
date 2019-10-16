@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/16 20:56:21 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/16 23:08:55 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #define DEBUG 0
 
 int num_tests = 0;
+int num_ok = 0;
+int num_fail = 0;
 
 static char *test_ft_atoi()
 {
@@ -373,17 +375,38 @@ static char *all_tests_libc() {
 	return 0;
 }
 
+void	print_result()
+{
+	int w = 23;
+	printf("\u2554");
+	for (size_t i = 0; i < w; i++)
+		printf("\u2500");
+	printf("\u2557\n");
+
+	printf("\u2502  Total:\t%d\t\u2502\n", num_tests);
+	printf("\u2502  Success:\t%i\t\u2502\n", num_ok);
+	printf("\u2502  Fail:\t%i\t\u2502\n", num_fail);
+
+	printf("\u255A");
+	for (size_t i = 0; i < w; i++)
+		printf("\u2500");
+	printf("\u255D\n");
+}
+
 int main(void/*int argc, char **argv*/)
 {
 	char *result = all_tests_libc();
 	if (result != 0) {
 		 printf("%s\n", result);
+		 print_result();
 	}
 	else
 	{
 		const char* user = getenv("USER");
-		printf("\033[0;32mALL OK!\033[0m\nGreat job, %s!\n", user);
+		printf("\t\t\t\033[0;32m[ALL OK]\033[0m\n");
+		print_result();
+		printf("Great job, %s!\n", user);
 	}
-	printf("Tests done: %d\n", num_tests);
+
 	return result != 0;
 }
