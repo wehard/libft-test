@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/17 15:18:24 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:57:12 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,6 +334,18 @@ static char *test_ft_itoa()
 	return (0);
 }
 
+static char *test_ft_strtrim()
+{
+	char *str = "   hello   ";
+	char *result;
+	result = ft_strtrim(str);
+
+	printf("src: %s\n", str);
+	printf("res: %s\n", result);
+	mu_assert("ft_itoa", "failed with \"  hello   \"", strcmp(result, "hello") == 0);
+	return (0);
+}
+
 
 // Part 1
 static char *all_tests_libc() {
@@ -383,7 +395,8 @@ static char *all_tests_libc() {
 
 static char *all_tests_additional()
 {
-	mu_run_test(test_ft_itoa);
+	//mu_run_test(test_ft_itoa);
+	mu_run_test(test_ft_strtrim);
 	return (0);
 }
 
