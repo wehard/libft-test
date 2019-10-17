@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/16 23:08:55 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/17 15:18:24 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,24 +325,31 @@ static char *test_ft_toupper()
 	return (0);
 }
 
+// TEST PART 2
+
+static char *test_ft_itoa()
+{
+	mu_assert("ft_itoa", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
+	mu_assert("ft_itoa", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
+	return (0);
+}
+
+
 // Part 1
 static char *all_tests_libc() {
 	mu_run_test(test_ft_atoi);
 	mu_run_test(test_ft_bzero);
-
 	mu_run_test(test_ft_isalnum);
 	mu_run_test(test_ft_isalpha);
 	mu_run_test(test_ft_isascii);
 	mu_run_test(test_ft_isdigit);
 	mu_run_test(test_ft_isprint);
-
 	mu_run_test(test_ft_memccpy);
 	mu_run_test(test_ft_memchr);
 	mu_run_test(test_ft_memcmp);
 	mu_run_test(test_ft_memcpy);
 	mu_run_test(test_ft_memmove);
 	mu_run_test(test_ft_memset);
-
 	mu_run_test(test_ft_strcat);
 	mu_run_test(test_ft_strchr);
 	mu_run_test(test_ft_strcmp);
@@ -354,9 +361,9 @@ static char *all_tests_libc() {
 #else
 	printf("Skipping ft_strlcat!\n");
 #endif
+
 	mu_run_test(test_ft_strlen);
 	mu_run_test(test_ft_strncat);
-
 	mu_run_test(test_ft_strncmp);
 	mu_run_test(test_ft_strncpy);
 
@@ -365,14 +372,19 @@ static char *all_tests_libc() {
 #else
 	printf("Skipping ft_strnstr!\n");
 #endif
+
 	mu_run_test(test_ft_strrchr);
-
 	mu_run_test(test_ft_strstr);
-
 	mu_run_test(test_ft_tolower);
 	mu_run_test(test_ft_toupper);
 
 	return 0;
+}
+
+static char *all_tests_additional()
+{
+	mu_run_test(test_ft_itoa);
+	return (0);
 }
 
 void	print_result()
@@ -395,7 +407,7 @@ void	print_result()
 
 int main(void/*int argc, char **argv*/)
 {
-	char *result = all_tests_libc();
+	char *result = all_tests_additional();
 	if (result != 0) {
 		 printf("%s\n", result);
 		 print_result();
