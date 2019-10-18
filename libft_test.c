@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/18 18:09:36 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/18 18:11:40 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -502,7 +502,6 @@ int main(int argc, char **argv)
 	{
 		libc_success = run_test("PART 1", all_tests_libc);
 		add_success = run_test("PART 2", all_tests_additional);
-		bonus_success = run_test("BONUS", all_tests_bonus);
 	}
 	else
 	{
