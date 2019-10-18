@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/18 15:59:40 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/18 16:41:43 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,6 +381,7 @@ static char *all_tests_libc() {
 
 static char *test_ft_itoa()
 {
+	mu_assert("ft_itoa_zero", "failed with 0", strcmp(ft_itoa(0), "0") == 0);
 	mu_assert("ft_itoa_pos", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
 	mu_assert("ft_itoa_neg", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
 	return (0);
