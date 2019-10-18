@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minunit.h                                          :+:      :+:    :+:   */
+/*   libft_test.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:25:50 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/16 23:05:40 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/18 11:39:26 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINUNIT_H
-# define MINUNIT_H
+#ifndef LIBFT_TEST_H
+# define LIBFT_TEST_H
 
 # define mu_assert(testname, message, test)\
 do\
 {\
 	if (!(test))\
 	{\
-		printf("%s:\t\033[0;31m[FAIL]\033[0m\t", testname);\
+		printf("%s:\t\033[0;31m[FAIL]\033[0m:\t", testname);\
 		return message;\
 	}\
 	else\

@@ -6,14 +6,14 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/17 17:57:12 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/18 15:59:40 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "minunit.h"
+#include "libft_test.h"
 #include "../libft/libft.h"
 
 #define BUFSIZE 50
@@ -22,6 +22,8 @@
 int num_tests = 0;
 int num_ok = 0;
 int num_fail = 0;
+
+#pragma region PART 1 LIBC
 
 static char *test_ft_atoi()
 {
@@ -325,29 +327,9 @@ static char *test_ft_toupper()
 	return (0);
 }
 
-// TEST PART 2
-
-static char *test_ft_itoa()
-{
-	mu_assert("ft_itoa", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
-	mu_assert("ft_itoa", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
-	return (0);
-}
-
-static char *test_ft_strtrim()
-{
-	char *str = "   hello   ";
-	char *result;
-	result = ft_strtrim(str);
-
-	printf("src: %s\n", str);
-	printf("res: %s\n", result);
-	mu_assert("ft_itoa", "failed with \"  hello   \"", strcmp(result, "hello") == 0);
-	return (0);
-}
 
 
-// Part 1
+
 static char *all_tests_libc() {
 	mu_run_test(test_ft_atoi);
 	mu_run_test(test_ft_bzero);
@@ -393,11 +375,81 @@ static char *all_tests_libc() {
 	return 0;
 }
 
+#pragma endregion
+
+#pragma region PART 2 ADDITIONAL
+
+static char *test_ft_itoa()
+{
+	mu_assert("ft_itoa_pos", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
+	mu_assert("ft_itoa_neg", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
+	return (0);
+}
+
+static char *test_ft_strtrim()
+{
+	char *str = "   hello   ";
+	char *result;
+	result = ft_strtrim(str);
+#if DEBUG
+	printf("src: %s\n", str);
+	printf("res: %s\n", result);
+#endif
+	//mu_assert("ft_strtrim_basic", "failed with \"  hello   \"", strcmp(result, "hello") == 0);
+	//mu_assert("ft_strtrim_empty", "failed with \"\"", strcmp(ft_strtrim(""), "") == 0);
+	mu_assert("ft_strtrim_blank", "failed with \"   \"", strcmp(ft_strtrim("   "), "") == 0);
+	return (0);
+}
+
+static char *test_ft_strsplit()
+{
+	char *str = "one two three";
+	char **res = ft_strsplit(str, ' ');
+	int c = 0;
+	while (res[c] != 0)
+		c++;
+
+	mu_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 3);
+	return (0);
+}
+
 static char *all_tests_additional()
 {
-	//mu_run_test(test_ft_itoa);
+	mu_run_test(test_ft_itoa);
 	mu_run_test(test_ft_strtrim);
+	mu_run_test(test_ft_strsplit);
 	return (0);
+}
+#pragma endregion
+
+#pragma region EXTRA
+
+static char *test_ft_nwords()
+{
+	mu_assert("ft_nwords", "failed with \"hello world\"", ft_nwords("hello world", ' ') == 2);
+	return (0);
+}
+
+static char *test_ft_ndigits()
+{
+	mu_assert("ft_ndigits_pos", "failed with 1234", ft_ndigits(1234) == 4);
+	mu_assert("ft_ndigits_neg", "failed with -1234", ft_ndigits(1234) == 4);
+	return (0);
+}
+
+static char *all_tests_extra()
+{
+	mu_run_test(test_ft_ndigits);
+	return (0);
+}
+
+#pragma endregion
+
+void	init()
+{
+	num_tests = 0;
+	num_ok = 0;
+	num_tests = 0;
 }
 
 void	print_result()
@@ -416,22 +468,38 @@ void	print_result()
 	for (size_t i = 0; i < w; i++)
 		printf("\u2500");
 	printf("\u255D\n");
+	printf("\n");
+	init();
+}
+
+int libc_success = 0;
+int add_success = 0;
+int extra_success = 0;
+
+static int run_test(char *name, char*(*test)(void))
+{
+	printf("Running tests for %s\n", name);
+	char *result = test();
+	if (result != 0)
+	{
+		printf("%s\n", result);
+	}
+	print_result();
+	return (result != 0);
 }
 
 int main(void/*int argc, char **argv*/)
 {
-	char *result = all_tests_additional();
-	if (result != 0) {
-		 printf("%s\n", result);
-		 print_result();
-	}
-	else
+	//libc_success = run_test("PART 1", all_tests_libc);
+	add_success = run_test("PART 2", all_tests_additional);
+	//extra_success = run_test("EXTRA", all_tests_extra);
+
+	if ((libc_success == 0) && (add_success == 0))
 	{
 		const char* user = getenv("USER");
 		printf("\t\t\t\033[0;32m[ALL OK]\033[0m\n");
-		print_result();
 		printf("Great job, %s!\n", user);
 	}
 
-	return result != 0;
+	return ((libc_success != 0) || (add_success != 0));
 }
