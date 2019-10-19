@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/18 18:11:40 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/19 11:49:56 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,6 +411,7 @@ static char *test_ft_strsplit()
 		c++;
 
 	mu_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 3);
+	mu_assert("ft_strsplit_empty", "failed with \"\"", ft_strsplit("", ' ') == 0);
 	return (0);
 }
 
