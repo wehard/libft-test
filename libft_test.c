@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/19 11:49:56 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/19 12:33:45 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static char *test_ft_atoi()
 	printf("ft_atoi: %i\n", b);
 #endif
 	mu_assert("ft_atoi", "error: ft_atoi failed!", a == b);
+	mu_assert("ft_atoi_548", "failed with \"548\"!", ft_atoi("548") == 548);
+	mu_assert("ft_atoi_47", "failed with \"47\"!", ft_atoi("47") == 47);
 	return 0;
 }
 
