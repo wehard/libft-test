@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/20 16:46:11 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/20 17:31:02 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,30 @@ static char *test_ft_atoi()
 	int a = atoi(str);
 	int b = ft_atoi(str);
 #if DEBUG
-	printf("atoi: %i\n", a);
+	printf("\n");
+	printf("atoi:    %i\n", a);
 	printf("ft_atoi: %i\n", b);
 #endif
 	mu_assert("ft_atoi", "error: ft_atoi failed!", a == b);
 	mu_assert("ft_atoi_+548", "failed with \"+548\"!", ft_atoi("+548") == 548);
 	mu_assert("ft_atoi_47", "failed with \"47\"!", ft_atoi("47") == 47);
 	mu_assert("ft_atoi_--47", "failed with \"--47\"!",  atoi("--47") == ft_atoi("--47"));
+
+/*
+	char	n[40] = "99999999999999999999999999";
+	int		i1 = atoi(n);
+	int		i2 = ft_atoi(n);
+#if DEBUG
+	ft_putchar('\n');
+	ft_putstr("atoi:    ");
+	ft_putnbr(i1);
+	ft_putchar('\n');
+	ft_putstr("ft_atoi: ");
+	ft_putnbr(i2);
+	ft_putchar('\n');
+#endif
+	mu_assert("ft_atoi_long+", "failed with over long max value", i1 == i2);
+	*/
 	return 0;
 }
 
@@ -451,7 +468,8 @@ static char *all_tests_additional()
 
 static char *test_ft_nwords()
 {
-	mu_assert("ft_nwords", "failed with \"hello world\"", ft_nwords("hello world", ' ') == 2);
+	mu_assert("ft_nwords_1", "failed with \"hello world\"", ft_nwords("hello world", ' ') == 2);
+	mu_assert("ft_nwords_2", "failed with \"helloworld\"", ft_nwords("helloworld", ' ') == 1);
 	return (0);
 }
 
@@ -464,6 +482,7 @@ static char *test_ft_ndigits()
 
 static char *all_tests_extra()
 {
+	mu_run_test(test_ft_nwords);
 	mu_run_test(test_ft_ndigits);
 	return (0);
 }
