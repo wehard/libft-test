@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/19 12:38:08 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/20 16:46:11 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char *test_ft_atoi()
 	printf("ft_atoi: %i\n", b);
 #endif
 	mu_assert("ft_atoi", "error: ft_atoi failed!", a == b);
-	mu_assert("ft_atoi_548", "failed with \"548\"!", ft_atoi("548") == 548);
+	mu_assert("ft_atoi_+548", "failed with \"+548\"!", ft_atoi("+548") == 548);
 	mu_assert("ft_atoi_47", "failed with \"47\"!", ft_atoi("47") == 47);
 	mu_assert("ft_atoi_--47", "failed with \"--47\"!",  atoi("--47") == ft_atoi("--47"));
 	return 0;
@@ -131,8 +131,10 @@ static char *test_ft_memmove()
 
 	memmove(buf1, src, 10);
 	ft_memmove(buf2, src, 10);
-
-	mu_assert("ft_memmove", "error: ft_memmove failed!", memcmp(buf1, buf2, 10) == 0);
+	mu_assert("ft_memmove_basic", "error: ft_memmove failed!", memcmp(buf1, buf2, 10) == 0);
+	memmove(NULL, NULL, 5);
+	ft_memmove(NULL, NULL, 5);
+	mu_assert("ft_memmove_null", "failed with (null, null, 5)", memmove(NULL, NULL, 5) == ft_memmove(NULL, NULL, 5));
 	return (0);
 }
 
@@ -290,6 +292,7 @@ static char *test_ft_strncpy()
 #endif
 
 	mu_assert("ft_strncpy", "error: ft_strncpy failed!", memcmp(dst1, dst2, 29) == 0);
+
 	return 0;
 }
 
@@ -390,6 +393,22 @@ static char *test_ft_itoa()
 	return (0);
 }
 
+static char *test_ft_strmapi()
+{
+	char *str;
+	char *strmapi;
+	str = (char *)malloc(sizeof(*str) * 12);
+	strcpy(str, "LoReM iPsUm");
+	//strmapi = ft_strmapi(str, &mapi);
+	return (0);
+}
+
+static char *test_ftstrnequ()
+{
+	mu_assert("ft_strnequ_zero", "should be true, was false", ft_strnequ("abcd", "zxyw", 0) == 1);
+	return (0);
+}
+
 static char *test_ft_strtrim()
 {
 	char *str = "   hello   ";
@@ -408,13 +427,13 @@ static char *test_ft_strtrim()
 static char *test_ft_strsplit()
 {
 	char *str = "one two three";
-	char **res = ft_strsplit(str, ' ');
+	char **res = ft_strsplit(str, 'x');
 	int c = 0;
 	while (res[c] != 0)
 		c++;
 
-	mu_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 3);
-	mu_assert("ft_strsplit_empty", "failed with \"\"", ft_strsplit("", ' ') == 0);
+	mu_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 1);
+	//mu_assert("ft_strsplit_empty", "failed with \"\"", ft_strsplit("", ' ') == 0);
 	return (0);
 }
 
@@ -423,6 +442,7 @@ static char *all_tests_additional()
 	mu_run_test(test_ft_itoa);
 	mu_run_test(test_ft_strtrim);
 	mu_run_test(test_ft_strsplit);
+	mu_run_test(test_ftstrnequ);
 	return (0);
 }
 #pragma endregion
