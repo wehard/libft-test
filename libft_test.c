@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/22 11:10:14 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:12:42 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,6 +422,7 @@ static char *test_ft_strmapi()
 
 static char *test_ftstrnequ()
 {
+	w_assert("ft_strnequ_simple", "should be true, was false", ft_strnequ("abcd", "abcd", 4) == 1);
 	w_assert("ft_strnequ_zero", "should be true, was false", ft_strnequ("abcd", "zxyw", 0) == 1);
 	return (0);
 }
