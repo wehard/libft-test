@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/22 11:12:42 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:31:04 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -473,6 +473,7 @@ static char *all_tests_bonus()
 
 #pragma endregion
 
+/*
 #pragma region EXTRA
 
 static char *test_ft_strrev()
@@ -506,6 +507,7 @@ static char *all_tests_extra()
 }
 
 #pragma endregion
+*/
 
 void	init()
 {
@@ -566,8 +568,8 @@ int main(int argc, char **argv)
 			add_success = run_test("PART 2", all_tests_additional);
 		if (strcmp(argv[1], "b") == 0)
 			bonus_success = run_test("BONUS", all_tests_bonus);
-		if (strcmp(argv[1], "x") == 0)
-			extra_success = run_test("EXTRA", all_tests_extra);
+		//if (strcmp(argv[1], "x") == 0)
+			//extra_success = run_test("EXTRA", all_tests_extra);
 	}
 
 	if ((libc_success == 0) && (add_success == 0) && (bonus_success == 0) && (extra_success == 0))
