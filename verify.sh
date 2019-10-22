@@ -20,11 +20,13 @@ else
 	printf "$RED%s\n" "Error: no author file"
 fi
 
-printf "$NORMAL%s\n" "Norminetting everything..."
+sleep 2
 
+printf "$NORMAL%s" "Norminetting everything..."
 # Check norme
 norminette $LIB/ft*.c $LIB/libft.h | grep "Warning\|Error"
-
+printf "%s\n" " done"
+sleep 1
 printf "\n"
 
 # Check if all mandatory source files exist
