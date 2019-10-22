@@ -60,4 +60,6 @@ do
 	fi
 done
 
+printf "$NORMAL\n"
 
+grep "malloc(" $LIB/ft*.c
