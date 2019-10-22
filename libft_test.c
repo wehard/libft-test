@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/21 16:09:33 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:07:52 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,8 +435,8 @@ static char *test_ft_strtrim()
 	printf("src: %s\n", str);
 	printf("res: %s\n", result);
 #endif
-	//mu_assert("ft_strtrim_basic", "failed with \"  hello   \"", strcmp(result, "hello") == 0);
-	//mu_assert("ft_strtrim_empty", "failed with \"\"", strcmp(ft_strtrim(""), "") == 0);
+	mu_assert("ft_strtrim_basic", "failed with \"  hello   \"", strcmp(result, "hello") == 0);
+	mu_assert("ft_strtrim_empty", "failed with \"\"", strcmp(ft_strtrim(""), "") == 0);
 	mu_assert("ft_strtrim_blank", "failed with \"   \"", strcmp(ft_strtrim("   "), "") == 0);
 	return (0);
 }
@@ -444,13 +444,12 @@ static char *test_ft_strtrim()
 static char *test_ft_strsplit()
 {
 	char *str = "one two three";
-	char **res = ft_strsplit(str, 'x');
+	char **res = ft_strsplit(str, ' ');
 	int c = 0;
 	while (res[c] != 0)
 		c++;
 
-	mu_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 1);
-	//mu_assert("ft_strsplit_empty", "failed with \"\"", ft_strsplit("", ' ') == 0);
+	mu_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 3);
 	return (0);
 }
 
@@ -464,7 +463,24 @@ static char *all_tests_additional()
 }
 #pragma endregion
 
+#pragma region BONUS
+
+static char *all_tests_bonus()
+{
+	return (0);
+}
+
+#pragma endregion
+
 #pragma region EXTRA
+
+static char *test_ft_strrev()
+{
+	char str[5] = "hello";
+	ft_strrev(str);
+	mu_assert("ft_strrev_simple", "failed with \"hello\"", strcmp(str, "olleh") == 0);
+	return (0);
+}
 
 static char *test_ft_nwords()
 {
@@ -482,18 +498,13 @@ static char *test_ft_ndigits()
 
 static char *all_tests_extra()
 {
+	mu_run_test(test_ft_strrev);
 	mu_run_test(test_ft_nwords);
 	mu_run_test(test_ft_ndigits);
 	return (0);
 }
 
 #pragma endregion
-
-
-static char *all_tests_bonus()
-{
-	return (0);
-}
 
 void	init()
 {
