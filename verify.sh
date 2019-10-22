@@ -1,5 +1,7 @@
 #!/bin/bash
 
+LIB=../libft
+
 BLACK="\033[30m"
 RED="\033[31m"
 GREEN="\033[32m"
@@ -10,7 +12,20 @@ CYAN="\033[36m"
 WHITE="\033[37m"
 NORMAL="\033[0;39m"
 
-files=($(find ../libft -name "ft_*.c" -exec basename {} \; | cut -d '.' -f 1))
+# Check if all mandatory source files exist
+while read file; do
+	if test -f "$LIB/$file.c"; then
+		printf "$GREEN%s\n" "$file.c found"
+	else
+		printf "$RED%s\n" "$file.c not found!"
+	fi
+done < ft_list.txt
+
+printf "\n"
+
+# Shows header prototype with function definition side by side
+
+files=($(find $LIB -name "ft_*.c" -exec basename {} \; | cut -d '.' -f 1))
 files_length=${#files[@]}
 
 printf "$WHITE%s\n" "source file"
@@ -21,8 +36,9 @@ for file in "${files[@]}"
 do
 	#cat ../libft/${file}.c | grep "${file}" | grep -v "\/\*"
 	printf $WHITE
-	grep "${file}" ../libft/${file}.c | grep -v "\/\*" | grep -v ";" | tr -s \\t
+	grep "${file}" $LIB/${file}.c | grep -v "\/\*" | grep -v ";" | tr -s \\t
 	printf $YELLOW
-	grep "${file}(" ../libft/libft.h | tr -s \\t
-
+	grep "${file}(" $LIB/libft.h | tr -s \\t | cut -d ";" -f 1
 done
+
+
