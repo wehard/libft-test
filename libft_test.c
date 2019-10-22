@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/22 11:07:52 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:10:14 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static char *test_ft_atoi()
 	printf("atoi:    %i\n", a);
 	printf("ft_atoi: %i\n", b);
 #endif
-	mu_assert("ft_atoi", "error: ft_atoi failed!", a == b);
-	mu_assert("ft_atoi_+548", "failed with \"+548\"!", ft_atoi("+548") == 548);
-	mu_assert("ft_atoi_47", "failed with \"47\"!", ft_atoi("47") == 47);
-	mu_assert("ft_atoi_--47", "failed with \"--47\"!",  atoi("--47") == ft_atoi("--47"));
+	w_assert("ft_atoi", "error: ft_atoi failed!", a == b);
+	w_assert("ft_atoi_+548", "failed with \"+548\"!", ft_atoi("+548") == 548);
+	w_assert("ft_atoi_47", "failed with \"47\"!", ft_atoi("47") == 47);
+	w_assert("ft_atoi_--47", "failed with \"--47\"!",  atoi("--47") == ft_atoi("--47"));
 
 /*
 	char	n[40] = "99999999999999999999999999";
@@ -69,42 +69,42 @@ static char *test_ft_bzero()
 	bzero(str1, 20);
 	ft_bzero(str2, 20);
 
-	mu_assert("ft_bzero", "error: ft_bzero failed!", memcmp(str1, str2, BUFSIZE) == 0);
+	w_assert("ft_bzero", "error: ft_bzero failed!", memcmp(str1, str2, BUFSIZE) == 0);
 	return 0;
 }
 
 static char *test_ft_isalnum()
 {
 	char c = '1';
-	mu_assert("ft_isalnum", "basic test failed!", ft_isalnum(c) == 1);
+	w_assert("ft_isalnum", "basic test failed!", ft_isalnum(c) == 1);
 	return (0);
 }
 
 static char *test_ft_isalpha()
 {
 	char c = 'a';
-	mu_assert("ft_isalpha", "error: ft_isalpha failed!", ft_isalpha(c) == 1);
+	w_assert("ft_isalpha", "error: ft_isalpha failed!", ft_isalpha(c) == 1);
 	return (0);
 }
 
 static char *test_ft_isascii()
 {
 	char c = '1';
-	mu_assert("ft_isascii", "error: ft_isascii failed!", ft_isascii(c) == 1);
+	w_assert("ft_isascii", "error: ft_isascii failed!", ft_isascii(c) == 1);
 	return (0);
 }
 
 static char *test_ft_isdigit()
 {
 	char c = '1';
-	mu_assert("ft_isdigit", "error: ft_isdigit failed!", ft_isdigit(c) == 1);
+	w_assert("ft_isdigit", "error: ft_isdigit failed!", ft_isdigit(c) == 1);
 	return (0);
 }
 
 static char *test_ft_isprint()
 {
 	char c = '1';
-	mu_assert("ft_isprint", "error: ft_isprint failed!", ft_isprint(c) == 1);
+	w_assert("ft_isprint", "error: ft_isprint failed!", ft_isprint(c) == 1);
 	return (0);
 }
 
@@ -117,7 +117,7 @@ static char *test_ft_memccpy()
 	memccpy(buf1, src, 'x', 10);
 	ft_memccpy(buf2, src, 'x', 10);
 
-	mu_assert("ft_memccpy", "error: ft_memccpy failed!", memcmp(buf1, buf2, 10) == 0);
+	w_assert("ft_memccpy", "error: ft_memccpy failed!", memcmp(buf1, buf2, 10) == 0);
 	return (0);
 }
 
@@ -126,7 +126,7 @@ static char *test_ft_memchr()
 	char str[] = "test basic ft_memchr !";
 	char c = 'f';
 
-	mu_assert("ft_memchr", "error: ft_memchr failed!", memchr(str, c, 15) == ft_memchr(str, c, 15));
+	w_assert("ft_memchr", "error: ft_memchr failed!", memchr(str, c, 15) == ft_memchr(str, c, 15));
 	return (0);
 }
 
@@ -136,7 +136,7 @@ static char *test_ft_memcmp()
 	char *s2 = "hello world!";
 	int n = 5;
 
-	mu_assert("ft_memcmp", "error: ft_memcmp failed!", memcmp(s1, s2, n) == ft_memcmp(s1, s2, n));
+	w_assert("ft_memcmp", "error: ft_memcmp failed!", memcmp(s1, s2, n) == ft_memcmp(s1, s2, n));
 	return (0);
 }
 
@@ -148,10 +148,10 @@ static char *test_ft_memmove()
 
 	memmove(buf1, src, 10);
 	ft_memmove(buf2, src, 10);
-	mu_assert("ft_memmove_basic", "error: ft_memmove failed!", memcmp(buf1, buf2, 10) == 0);
+	w_assert("ft_memmove_basic", "error: ft_memmove failed!", memcmp(buf1, buf2, 10) == 0);
 	memmove(NULL, NULL, 5);
 	ft_memmove(NULL, NULL, 5);
-	mu_assert("ft_memmove_null", "failed with (null, null, 5)", memmove(NULL, NULL, 5) == ft_memmove(NULL, NULL, 5));
+	w_assert("ft_memmove_null", "failed with (null, null, 5)", memmove(NULL, NULL, 5) == ft_memmove(NULL, NULL, 5));
 	return (0);
 }
 
@@ -164,7 +164,7 @@ static char *test_ft_memcpy()
 	memcpy(buf1, src, 10);
 	ft_memcpy(buf2, src, 10);
 
-	mu_assert("ft_memcpy", "error: ft_memcpy failed!", memcmp(buf1, buf2, 10) == 0);
+	w_assert("ft_memcpy", "error: ft_memcpy failed!", memcmp(buf1, buf2, 10) == 0);
 	return (0);
 }
 
@@ -179,7 +179,7 @@ static char *test_ft_memset()
 	memset(buf1, 'O', BUFSIZE);
 	ft_memset(buf2, 'O', BUFSIZE);
 
-	mu_assert("ft_memset", "error: ft_memset failed!", memcmp(buf1, buf2, 10) == 0);
+	w_assert("ft_memset", "error: ft_memset failed!", memcmp(buf1, buf2, 10) == 0);
 	return (0);
 }
 
@@ -191,7 +191,7 @@ static char *test_ft_strcat()
 
 	strcat(buf1, src);
 	ft_strcat(buf2, src);
-	mu_assert("ft_strcat", "error: ft_strcat failed!", strcmp(buf1, buf2) == 0);
+	w_assert("ft_strcat", "error: ft_strcat failed!", strcmp(buf1, buf2) == 0);
 	return (0);
 }
 
@@ -200,7 +200,7 @@ static char *test_ft_strchr()
 	char str[] = "test basic ft_strchr !";
 	char c = 'f';
 
-	mu_assert("ft_strchr", "error: ft_strchr failed!", strchr(str, c) == ft_strchr(str, c));
+	w_assert("ft_strchr", "error: ft_strchr failed!", strchr(str, c) == ft_strchr(str, c));
 	return (0);
 }
 
@@ -209,7 +209,7 @@ static char *test_ft_strrchr()
 	char str[] = "test basic ft_strrchr !";
 	char c = 'f';
 
-	mu_assert("ft_strrchr", "error: ft_strrchr failed!", strrchr(str, c) == ft_strrchr(str, c));
+	w_assert("ft_strrchr", "error: ft_strrchr failed!", strrchr(str, c) == ft_strrchr(str, c));
 	return (0);
 }
 
@@ -217,7 +217,7 @@ static char *test_ft_strcmp()
 {
 	char *s1 = "hello world!";
 	char *s2 = "hello world!";
-	mu_assert("ft_strcmp", "error: ft_strcmp failed!", strcmp(s1, s2) == ft_strcmp(s1, s2));
+	w_assert("ft_strcmp", "error: ft_strcmp failed!", strcmp(s1, s2) == ft_strcmp(s1, s2));
 	return 0;
 }
 
@@ -233,7 +233,7 @@ static char *test_ft_strcpy()
 	strcpy(dst1, src);
 	ft_strcpy(dst2, src);
 
-	mu_assert("ft_strcpy", "error: ft_strcpy failed!", strcmp(dst1, dst2) == 0);
+	w_assert("ft_strcpy", "error: ft_strcpy failed!", strcmp(dst1, dst2) == 0);
 	return 0;
 }
 
@@ -244,7 +244,7 @@ static char *test_ft_strdup()
 
 	ft_strcpy(dup, src);
 
-	mu_assert("ft_strdup", "error: ft_strdup failed!", strcmp(src, dup) == 0);
+	w_assert("ft_strdup", "error: ft_strdup failed!", strcmp(src, dup) == 0);
 	return 0;
 }
 
@@ -257,14 +257,14 @@ static char *test_ft_strlcat()
 
 	strlcat(buf1, src, 5);
 	ft_strlcat(buf2, src, 5);
-	mu_assert("ft_strlcat", "error: ft_strlcat failed!", strcmp(buf1, buf2) == 0);
+	w_assert("ft_strlcat", "error: ft_strlcat failed!", strcmp(buf1, buf2) == 0);
 	return (0);
 }
 #endif
 
 static char *test_ft_strlen()
 {
-	mu_assert("ft_strlen", "error: ft_strlen failed!", strlen("123") == ft_strlen("123"));
+	w_assert("ft_strlen", "error: ft_strlen failed!", strlen("123") == ft_strlen("123"));
 	return 0;
 }
 
@@ -276,7 +276,7 @@ static char *test_ft_strncat()
 
 	strncat(buf1, src, 5);
 	ft_strncat(buf2, src, 5);
-	mu_assert("ft_strncat", "error: ft_strncat failed!", strcmp(buf1, buf2) == 0);
+	w_assert("ft_strncat", "error: ft_strncat failed!", strcmp(buf1, buf2) == 0);
 	return (0);
 }
 
@@ -286,7 +286,7 @@ static char *test_ft_strncmp()
 	char *s2 = "hello world!";
 	int n = 5;
 
-	mu_assert("ft_strncmp", "error: ft_strncmp failed!", strncmp(s1, s2, n) == ft_strncmp(s1, s2, n));
+	w_assert("ft_strncmp", "error: ft_strncmp failed!", strncmp(s1, s2, n) == ft_strncmp(s1, s2, n));
 	return 0;
 }
 
@@ -308,7 +308,7 @@ static char *test_ft_strncpy()
 	printf("ft_strncpy:\t%s\n", dst2);
 #endif
 
-	mu_assert("ft_strncpy", "error: ft_strncpy failed!", memcmp(dst1, dst2, 29) == 0);
+	w_assert("ft_strncpy", "error: ft_strncpy failed!", memcmp(dst1, dst2, 29) == 0);
 
 	return 0;
 }
@@ -323,7 +323,7 @@ static char *test_ft_strnstr()
 	printf("%s\n", strnstr(str, needle, n));
 	printf("%s\n", ft_strnstr(str, needle, n));
 #endif
-	mu_assert("ft_strnstr", "error: ft_strnstr failed!", strnstr(str, needle, n) == ft_strnstr(str, needle, n));
+	w_assert("ft_strnstr", "error: ft_strnstr failed!", strnstr(str, needle, n) == ft_strnstr(str, needle, n));
 	return (0);
 }
 #endif
@@ -332,21 +332,21 @@ static char *test_ft_strstr()
 {
 	char str[] = "this is a string and we want to find something in it";
 	char needle[] = "string";
-	mu_assert("ft_strstr", "error: ft_strstr failed!", strstr(str, needle) == ft_strstr(str, needle));
+	w_assert("ft_strstr", "error: ft_strstr failed!", strstr(str, needle) == ft_strstr(str, needle));
 	return (0);
 }
 
 static char *test_ft_tolower()
 {
-	mu_assert("ft_tolower (alpha)", "error: ft_strstr failed!", ft_tolower('C') == 'c');
-	mu_assert("ft_tolower (nprint)", "error: ft_strstr failed!", ft_tolower('\n') == '\n');
+	w_assert("ft_tolower (alpha)", "error: ft_strstr failed!", ft_tolower('C') == 'c');
+	w_assert("ft_tolower (nprint)", "error: ft_strstr failed!", ft_tolower('\n') == '\n');
 	return (0);
 }
 
 static char *test_ft_toupper()
 {
-	mu_assert("ft_toupper (alpha)", "failed basic test with alpha", ft_toupper('c') == 'C');
-	mu_assert("ft_toupper (nprint)", "failed test with \'\\r\'", ft_toupper('\r') == '\r');
+	w_assert("ft_toupper (alpha)", "failed basic test with alpha", ft_toupper('c') == 'C');
+	w_assert("ft_toupper (nprint)", "failed test with \'\\r\'", ft_toupper('\r') == '\r');
 	return (0);
 }
 
@@ -354,46 +354,46 @@ static char *test_ft_toupper()
 
 
 static char *all_tests_libc() {
-	mu_run_test(test_ft_atoi);
-	mu_run_test(test_ft_bzero);
-	mu_run_test(test_ft_isalnum);
-	mu_run_test(test_ft_isalpha);
-	mu_run_test(test_ft_isascii);
-	mu_run_test(test_ft_isdigit);
-	mu_run_test(test_ft_isprint);
-	mu_run_test(test_ft_memccpy);
-	mu_run_test(test_ft_memchr);
-	mu_run_test(test_ft_memcmp);
-	mu_run_test(test_ft_memcpy);
-	mu_run_test(test_ft_memmove);
-	mu_run_test(test_ft_memset);
-	mu_run_test(test_ft_strcat);
-	mu_run_test(test_ft_strchr);
-	mu_run_test(test_ft_strcmp);
-	mu_run_test(test_ft_strcpy);
-	mu_run_test(test_ft_strdup);
+	w_run_test(test_ft_atoi);
+	w_run_test(test_ft_bzero);
+	w_run_test(test_ft_isalnum);
+	w_run_test(test_ft_isalpha);
+	w_run_test(test_ft_isascii);
+	w_run_test(test_ft_isdigit);
+	w_run_test(test_ft_isprint);
+	w_run_test(test_ft_memccpy);
+	w_run_test(test_ft_memchr);
+	w_run_test(test_ft_memcmp);
+	w_run_test(test_ft_memcpy);
+	w_run_test(test_ft_memmove);
+	w_run_test(test_ft_memset);
+	w_run_test(test_ft_strcat);
+	w_run_test(test_ft_strchr);
+	w_run_test(test_ft_strcmp);
+	w_run_test(test_ft_strcpy);
+	w_run_test(test_ft_strdup);
 
 #ifdef __APPLE__
-	mu_run_test(test_ft_strlcat);
+	w_run_test(test_ft_strlcat);
 #else
 	printf("Skipping ft_strlcat!\n");
 #endif
 
-	mu_run_test(test_ft_strlen);
-	mu_run_test(test_ft_strncat);
-	mu_run_test(test_ft_strncmp);
-	mu_run_test(test_ft_strncpy);
+	w_run_test(test_ft_strlen);
+	w_run_test(test_ft_strncat);
+	w_run_test(test_ft_strncmp);
+	w_run_test(test_ft_strncpy);
 
 #ifdef __APPLE__
-	mu_run_test(test_ft_strnstr);
+	w_run_test(test_ft_strnstr);
 #else
 	printf("Skipping ft_strnstr!\n");
 #endif
 
-	mu_run_test(test_ft_strrchr);
-	mu_run_test(test_ft_strstr);
-	mu_run_test(test_ft_tolower);
-	mu_run_test(test_ft_toupper);
+	w_run_test(test_ft_strrchr);
+	w_run_test(test_ft_strstr);
+	w_run_test(test_ft_tolower);
+	w_run_test(test_ft_toupper);
 
 	return 0;
 }
@@ -404,9 +404,9 @@ static char *all_tests_libc() {
 
 static char *test_ft_itoa()
 {
-	mu_assert("ft_itoa_zero", "failed with 0", strcmp(ft_itoa(0), "0") == 0);
-	mu_assert("ft_itoa_pos", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
-	mu_assert("ft_itoa_neg", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
+	w_assert("ft_itoa_zero", "failed with 0", strcmp(ft_itoa(0), "0") == 0);
+	w_assert("ft_itoa_pos", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
+	w_assert("ft_itoa_neg", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
 	return (0);
 }
 
@@ -422,7 +422,7 @@ static char *test_ft_strmapi()
 
 static char *test_ftstrnequ()
 {
-	mu_assert("ft_strnequ_zero", "should be true, was false", ft_strnequ("abcd", "zxyw", 0) == 1);
+	w_assert("ft_strnequ_zero", "should be true, was false", ft_strnequ("abcd", "zxyw", 0) == 1);
 	return (0);
 }
 
@@ -435,9 +435,9 @@ static char *test_ft_strtrim()
 	printf("src: %s\n", str);
 	printf("res: %s\n", result);
 #endif
-	mu_assert("ft_strtrim_basic", "failed with \"  hello   \"", strcmp(result, "hello") == 0);
-	mu_assert("ft_strtrim_empty", "failed with \"\"", strcmp(ft_strtrim(""), "") == 0);
-	mu_assert("ft_strtrim_blank", "failed with \"   \"", strcmp(ft_strtrim("   "), "") == 0);
+	w_assert("ft_strtrim_basic", "failed with \"  hello   \"", strcmp(result, "hello") == 0);
+	w_assert("ft_strtrim_empty", "failed with \"\"", strcmp(ft_strtrim(""), "") == 0);
+	w_assert("ft_strtrim_blank", "failed with \"   \"", strcmp(ft_strtrim("   "), "") == 0);
 	return (0);
 }
 
@@ -449,16 +449,16 @@ static char *test_ft_strsplit()
 	while (res[c] != 0)
 		c++;
 
-	mu_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 3);
+	w_assert("ft_strsplit_basic", "failed with \"one two three\"", c == 3);
 	return (0);
 }
 
 static char *all_tests_additional()
 {
-	mu_run_test(test_ft_itoa);
-	mu_run_test(test_ft_strtrim);
-	mu_run_test(test_ft_strsplit);
-	mu_run_test(test_ftstrnequ);
+	w_run_test(test_ft_itoa);
+	w_run_test(test_ft_strtrim);
+	w_run_test(test_ft_strsplit);
+	w_run_test(test_ftstrnequ);
 	return (0);
 }
 #pragma endregion
@@ -478,29 +478,29 @@ static char *test_ft_strrev()
 {
 	char str[5] = "hello";
 	ft_strrev(str);
-	mu_assert("ft_strrev_simple", "failed with \"hello\"", strcmp(str, "olleh") == 0);
+	w_assert("ft_strrev_simple", "failed with \"hello\"", strcmp(str, "olleh") == 0);
 	return (0);
 }
 
 static char *test_ft_nwords()
 {
-	mu_assert("ft_nwords_1", "failed with \"hello world\"", ft_nwords("hello world", ' ') == 2);
-	mu_assert("ft_nwords_2", "failed with \"helloworld\"", ft_nwords("helloworld", ' ') == 1);
+	w_assert("ft_nwords_1", "failed with \"hello world\"", ft_nwords("hello world", ' ') == 2);
+	w_assert("ft_nwords_2", "failed with \"helloworld\"", ft_nwords("helloworld", ' ') == 1);
 	return (0);
 }
 
 static char *test_ft_ndigits()
 {
-	mu_assert("ft_ndigits_pos", "failed with 1234", ft_ndigits(1234) == 4);
-	mu_assert("ft_ndigits_neg", "failed with -1234", ft_ndigits(1234) == 4);
+	w_assert("ft_ndigits_pos", "failed with 1234", ft_ndigits(1234) == 4);
+	w_assert("ft_ndigits_neg", "failed with -1234", ft_ndigits(1234) == 4);
 	return (0);
 }
 
 static char *all_tests_extra()
 {
-	mu_run_test(test_ft_strrev);
-	mu_run_test(test_ft_nwords);
-	mu_run_test(test_ft_ndigits);
+	w_run_test(test_ft_strrev);
+	w_run_test(test_ft_nwords);
+	w_run_test(test_ft_ndigits);
 	return (0);
 }
 

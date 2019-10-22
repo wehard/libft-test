@@ -6,14 +6,14 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:25:50 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/21 16:13:29 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:08:58 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_TEST_H
 # define LIBFT_TEST_H
 
-# define mu_assert(testname, message, test)\
+# define w_assert(testname, message, test)\
 do\
 {\
 	if (!(test))\
@@ -26,7 +26,7 @@ do\
 }\
 while (0)
 
-# define mu_run_test(test)\
+# define w_run_test(test)\
 do\
 {\
 	char *message = test();\
