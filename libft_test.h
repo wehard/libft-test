@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:25:50 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/22 11:08:58 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:15:40 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ do\
 		num_ok++;\
 }\
 while (0)
-//# define mu_test_ok(test) printf("test: \033[0;32mOK\033[0m\n")
 
 extern int num_tests;
 extern int num_ok;
