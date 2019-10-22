@@ -61,5 +61,6 @@ do
 done
 
 printf "$NORMAL\n"
-
-grep "malloc(" $LIB/ft*.c
+if [ "$1" == "malloc" ]; then
+	grep -A 1 "malloc(" $LIB/ft*.c
+fi
