@@ -12,6 +12,21 @@ CYAN="\033[36m"
 WHITE="\033[37m"
 NORMAL="\033[0;39m"
 
+
+# Check author
+if test -f "$LIB/author"; then
+	printf "$PINK%s %s!\n" "Hello" $(cat $LIB/author)
+else
+	printf "$RED%s\n" "Error: no author file"
+fi
+
+printf "$NORMAL%s\n" "Norminetting everything..."
+
+# Check norme
+norminette $LIB/ft*.c $LIB/libft.h | grep "Warning\|Error"
+
+printf "\n"
+
 # Check if all mandatory source files exist
 while read file; do
 	if test -f "$LIB/$file.c"; then
@@ -35,10 +50,14 @@ printf "$YELLOW%s\n" "header file"
 for file in "${files[@]}"
 do
 	#cat ../libft/${file}.c | grep "${file}" | grep -v "\/\*"
-	printf $WHITE
-	grep "${file}" $LIB/${file}.c | grep -v "\/\*" | grep -v ";" | tr -s \\t
-	printf $YELLOW
-	grep "${file}(" $LIB/libft.h | tr -s \\t | cut -d ";" -f 1
+	#printf $WHITE
+	SRC=$(grep "${file}" $LIB/${file}.c | grep -v "\/\*" | grep -v ";" | tr -s \\t)
+	#printf $YELLOW
+	PRO=$(grep "${file}(" $LIB/libft.h | tr -s \\t | cut -d ";" -f 1)
+	if [ "$SRC" != "$PRO" ]; then
+		printf "$WHITE%s\n" "$SRC"
+		printf "$YELLOW%s\n" "$PRO"
+	fi
 done
 
 
