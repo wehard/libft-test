@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/11/12 11:47:38 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:22:52 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -689,7 +689,7 @@ static char *all_tests_bonus()
 
 static char *test_ft_strrev()
 {
-	char str[5] = "hello";
+	char str[6] = "hello";
 	ft_strrev(str);
 	w_assert("ft_strrev_simple", "failed with \"hello\"", strcmp(str, "olleh") == 0);
 	return (0);
