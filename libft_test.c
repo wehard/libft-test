@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/22 17:14:37 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/11/12 11:47:38 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "libft_test.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 #define BUFSIZE 50
 #define DEBUG 0
@@ -402,12 +402,116 @@ static char *all_tests_libc() {
 
 #pragma region PART 2 ADDITIONAL
 
-static char *test_ft_itoa()
+static char *test_ft_memalloc()
 {
-	w_assert("ft_itoa_zero", "failed with 0", strcmp(ft_itoa(0), "0") == 0);
-	w_assert("ft_itoa_pos", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
-	w_assert("ft_itoa_neg", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
+	char *ptr;
+
+	ptr = (char*)ft_memalloc(10);
+	w_assert("ft_memalloc_basic", "is null", ft_memalloc(10) != 0);
+	free(ptr);
 	return (0);
+}
+
+static char *test_ft_memdel()
+{
+	void *ap;
+	ap = malloc(sizeof(ap) * 10);
+	ft_memdel(&ap);
+	w_assert("ft_memdel_basic", "is null", ap == 0);
+	return (0);
+}
+
+static char *test_ft_strnew()
+{
+	w_assert("ft_strnew", "error", ft_strnew(10) != 0);
+	return (0);
+}
+
+static char *test_ft_strdel()
+{
+	char *str;
+	str = (char*)malloc(sizeof(char) * 12);
+	ft_strdel(&str);
+	w_assert("ft_strdel", "not null", str == 0);
+	return (0);
+}
+
+static char *test_ft_strclr()
+{
+	char *str;
+	str = (char*)malloc(sizeof(char) * 10);
+	ft_memset(str, 'x', 9);
+	ft_strclr(str);
+	w_assert("ft_strclr", ft_strjoin("error: ", str), str[0] == '\0');
+	return (0);
+}
+
+void	iter_flip(char *c)
+{
+	if (*c >= 'a' && *c <= 'z')
+		*c = *c - 32;
+	else if (*c >= 'A' && *c <= 'Z')
+		*c = *c + 32;
+}
+
+static char *test_ft_striter()
+{
+	char	*str;
+	str = (char *)malloc(sizeof(char*) * 12);
+	strcpy(str, "hElLo wOrLd");
+	ft_striter(str, &iter_flip);
+	w_assert("ft_striter", ft_strjoin("error: ", str), strcmp(str, "HeLlO WoRlD") == 0);
+	return (0);
+}
+
+void	iter_flip_i(unsigned int i, char *c)
+{
+	if (*c >= 'a' && *c <= 'z')
+		*c = *c - i;
+	else if (*c >= 'A' && *c <= 'Z')
+		*c = *c + i;
+}
+
+static char *test_ft_striteri()
+{
+	char	*str;
+	str = (char *)malloc(sizeof(char*) * 12);
+	strcpy(str, "hElLo wOrLd");
+	ft_striteri(str, iter_flip_i);
+	w_assert("ft_striteri", ft_strjoin("error: ", str), strcmp(str, "hFjOk qVjUZ") == 0);
+	return (0);
+	return (0);
+}
+
+char	map(char c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	else if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	else
+		return (c);
+}
+
+static char *test_ft_strmap()
+{
+	char *str;
+	char *strmap;
+	str = (char *)malloc(sizeof(*str) * 12);
+	strcpy(str, "hElLo wOrLd");
+	strmap = ft_strmap(str, map);
+	w_assert("ft_strmap", "error!", (strcmp(strmap, "HeLlO WoRlD") == 0) && strmap != str);
+	return (0);
+}
+
+char	mapi(unsigned int i, char c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (c - i);
+	else if (c >= 'A' && c <= 'Z')
+		return (c + i);
+	else
+		return (c);
 }
 
 static char *test_ft_strmapi()
@@ -415,15 +519,43 @@ static char *test_ft_strmapi()
 	char *str;
 	char *strmapi;
 	str = (char *)malloc(sizeof(*str) * 12);
-	strcpy(str, "LoReM iPsUm");
-	//strmapi = ft_strmapi(str, &mapi);
+	strcpy(str, "hElLo wOrLd");
+	strmapi = ft_strmapi(str, mapi);
+	w_assert("ft_strmapi", "error!", (strcmp(strmapi, "hFjOk qVjUZ") == 0) && strmapi != str);
 	return (0);
 }
 
-static char *test_ftstrnequ()
+static char *test_ft_strequ()
 {
+	w_assert("ft_strequ", "error", ft_strequ("hello world", "hello world"));
+	w_assert("ft_strequ_null", "does not handle NULL", ft_strequ(NULL, NULL) == 0);
+	return (0);
+}
+
+static char *test_ft_strnequ()
+{
+	w_assert("ft_strnequ", "error", ft_strnequ("hello world", "helloXXXXXX", 5));
 	w_assert("ft_strnequ_simple", "should be true, was false", ft_strnequ("abcd", "abcd", 4) == 1);
 	w_assert("ft_strnequ_zero", "should be true, was false", ft_strnequ("abcd", "zxyw", 0) == 1);
+	return (0);
+}
+
+static char *test_ft_strsub()
+{
+	char *res;
+	res = ft_strsub("hello world", 2, 7);
+	w_assert("ft_strsub", "error", strcmp(res, "llo wor") == 0);
+	return (0);
+}
+
+static char *test_ft_strjoin()
+{
+	char *res;
+	res = ft_strjoin("hello", "world");
+#if DEBUG
+	ft_putendl(res);
+#endif
+	w_assert("ft_strjoin", "error", strcmp(res, "helloworld") == 0);
 	return (0);
 }
 
@@ -454,12 +586,91 @@ static char *test_ft_strsplit()
 	return (0);
 }
 
+static char *test_ft_itoa()
+{
+	w_assert("ft_itoa_zero", "failed with 0", strcmp(ft_itoa(0), "0") == 0);
+	w_assert("ft_itoa_pos", "failed with 12345", strcmp(ft_itoa(12345), "12345") == 0);
+	w_assert("ft_itoa_neg", "failed with -12345", strcmp(ft_itoa(-12345), "-12345") == 0);
+	return (0);
+}
+
+static char *test_ft_putchar()
+{
+	ft_putchar('c');
+	ft_putchar('\n');
+	w_assert("ft_putchar", "oh no!", 1);
+	return (0);
+}
+
+static char *test_ft_putstr()
+{
+	ft_putstr("ft_putstr\n");
+	w_assert("ft_putstr", "oh no!", 1);
+	return (0);
+}
+
+static char *test_ft_putendl()
+{
+	ft_putendl("ft_putendl");
+	w_assert("ft_putendl", "oh no!", 1);
+	return (0);
+}
+
+static char *test_ft_putnbr()
+{
+	ft_putnbr(1234);
+	ft_putchar('\n');
+	w_assert("ft_putnbr", "oh no!", 1);
+	return (0);
+}
+
+static char *test_ft_putchar_fd()
+{
+	ft_putchar_fd('c', 1);
+	ft_putchar_fd('\n', 1);
+	w_assert("ft_putchar_fd", "oh no!", 1);
+	return (0);
+}
+
+static char *test_ft_putstr_fd()
+{
+	ft_putstr_fd("ft_putstr_fd\n", 1);
+	w_assert("ft_putstr_fd", "oh no!", 1);
+	return (0);
+}
+
+static char *test_ft_putendl_fd()
+{
+	ft_putendl_fd("ft_putendl", 1);
+	w_assert("ft_putendl_fd", "oh no!", 1);
+	return (0);
+}
+
 static char *all_tests_additional()
 {
-	w_run_test(test_ft_itoa);
+	w_run_test(test_ft_memalloc);
+	w_run_test(test_ft_memdel);
+	w_run_test(test_ft_strnew);
+	w_run_test(test_ft_strdel);
+	w_run_test(test_ft_strclr);
+	w_run_test(test_ft_striter);
+	w_run_test(test_ft_striteri);
+	w_run_test(test_ft_strmap);
+	w_run_test(test_ft_strmapi);
+	w_run_test(test_ft_strequ);
+	w_run_test(test_ft_strnequ);
+	w_run_test(test_ft_strsub);
+	w_run_test(test_ft_strjoin);
 	w_run_test(test_ft_strtrim);
 	w_run_test(test_ft_strsplit);
-	w_run_test(test_ftstrnequ);
+	w_run_test(test_ft_itoa);
+	w_run_test(test_ft_putchar);
+	w_run_test(test_ft_putstr);
+	w_run_test(test_ft_putendl);
+	w_run_test(test_ft_putnbr);
+	w_run_test(test_ft_putchar_fd);
+	w_run_test(test_ft_putstr_fd);
+	w_run_test(test_ft_putendl_fd);
 	return (0);
 }
 #pragma endregion
@@ -575,7 +786,7 @@ int main(int argc, char **argv)
 	if ((libc_success == 0) && (add_success == 0) && (bonus_success == 0) && (extra_success == 0))
 	{
 		const char* user = getenv("USER");
-		printf("\t\t\t\033[0;32m[ALL OK]\033[0m\n");
+		printf("\033[0;32m%24s\033[0m\n", "[ALL OK]");
 		printf("Great job, %s!\n", user);
 	}
 

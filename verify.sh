@@ -1,6 +1,8 @@
 #!/bin/bash
 
 LIB=../libft
+LIBSRCDIR=$LIB/srcs
+LIBINCLDIR=$LIB/includes
 
 BLACK="\033[30m"
 RED="\033[31m"
@@ -11,7 +13,6 @@ PINK="\033[35m"
 CYAN="\033[36m"
 WHITE="\033[37m"
 NORMAL="\033[0;39m"
-
 
 # Check author
 if test -f "$LIB/author"; then
@@ -24,14 +25,14 @@ sleep 2
 
 printf "$NORMAL%s" "Norminetting everything..."
 # Check norme
-norminette $LIB/ft*.c $LIB/libft.h | grep "Warning\|Error"
+norminette $LIBSRCDIR/ft*.c $LIBINCLDIR/libft.h | grep "Warning\|Error"
 printf "%s\n" " done"
 sleep 1
 printf "\n"
 
 # Check if all mandatory source files exist
 while read file; do
-	if test -f "$LIB/$file.c"; then
+	if test -f "$LIBSRCDIR/$file.c"; then
 		printf "$GREEN%s\n" "$file.c found"
 	else
 		printf "$RED%s\n" "$file.c not found!"
@@ -51,11 +52,8 @@ printf "$YELLOW%s\n" "header file"
 
 for file in "${files[@]}"
 do
-	#cat ../libft/${file}.c | grep "${file}" | grep -v "\/\*"
-	#printf $WHITE
-	SRC=$(grep "${file}" $LIB/${file}.c | grep -v "\/\*" | grep -v ";" | tr -s \\t)
-	#printf $YELLOW
-	PRO=$(grep "${file}(" $LIB/libft.h | tr -s \\t | cut -d ";" -f 1)
+	SRC=$(grep "${file}" $LIBSRCDIR/${file}.c | grep -v "\/\*" | grep -v ";" | tr -s \\t)
+	PRO=$(grep "${file}(" $LIBINCLDIR/libft.h | tr -s \\t | cut -d ";" -f 1)
 	if [ "$SRC" != "$PRO" ]; then
 		printf "$WHITE%s\n" "$SRC"
 		printf "$YELLOW%s\n" "$PRO"
@@ -64,5 +62,5 @@ done
 
 printf "$NORMAL\n"
 if [ "$1" == "malloc" ]; then
-	grep -A 1 "malloc(" $LIB/ft*.c
+	grep -A 1 "malloc(" $LIBSRCDIR/ft*.c
 fi

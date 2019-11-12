@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:25:50 by wkorande          #+#    #+#             */
-/*   Updated: 2019/10/22 11:15:40 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/11/12 11:46:51 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ do\
 {\
 	if (!(test))\
 	{\
-		printf("%s:\t\033[0;31m[FAIL]\033[0m:\t", testname);\
+		printf("\033[0;34m%-23s\033[0;31m[FAIL]\033[0m\t", testname);\
 		return message;\
 	}\
 	else\
-		printf("%s:\t\033[0;32m[OK]\033[0m\n", testname);\
+		printf("\033[0;34m%-25s\033[0;32m[OK]\033[0m\n", testname);\
 }\
 while (0)
 

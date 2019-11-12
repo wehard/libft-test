@@ -6,7 +6,7 @@
 #    By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 15:22:37 by wkorande          #+#    #+#              #
-#    Updated: 2019/10/16 11:11:19 by wkorande         ###   ########.fr        #
+#    Updated: 2019/11/12 11:03:56 by wkorande         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,14 @@ INCL = ./
 
 LIBFOLDER = ../libft
 
+LIBINCL	= includes
+
 all: $(NAME)
 
 $(NAME):
-	cd $(LIBFOLDER) && make re && make clean
-	gcc -o $(NAME) -I $(INCL) $(SRCS) -L../libft -lft
+	make -C $(LIBFOLDER)
+	make clean -C $(LIBFOLDER)
+	gcc -o $(NAME) -I $(INCL) -I $(LIBFOLDER)/$(LIBINCL) $(SRCS) -L$(LIBFOLDER) -lft
 
 clean:
 	rm -f *.o
