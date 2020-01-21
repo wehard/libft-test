@@ -6,7 +6,7 @@
 /*   By: wkorande <wkorande@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 21:27:33 by wkorande          #+#    #+#             */
-/*   Updated: 2019/11/12 12:22:52 by wkorande         ###   ########.fr       */
+/*   Updated: 2019/12/20 15:21:38 by wkorande         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include "libft_test.h"
 #include "libft.h"
+#include "ft_printf.h"
 
 #define BUFSIZE 50
 #define DEBUG 0
@@ -786,8 +787,8 @@ int main(int argc, char **argv)
 	if ((libc_success == 0) && (add_success == 0) && (bonus_success == 0) && (extra_success == 0))
 	{
 		const char* user = getenv("USER");
-		printf("\033[0;32m%24s\033[0m\n", "[ALL OK]");
-		printf("Great job, %s!\n", user);
+		ft_printf("\033[0;32m%24s\033[0m\n", "[ALL OK]");
+		ft_printf("Great job, %s!\n", user);
 	}
 
 	return ((libc_success != 0) || (add_success != 0) || (bonus_success != 0) || (extra_success != 0));
